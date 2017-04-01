@@ -1,0 +1,81 @@
+<NotificationComponent></NotificationComponent>
+<div id="EmailComponent" class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+    <form #f="ngForm" (ngSubmit)="sendEmail(f.value)" >
+        <div class='panel-body'>
+                <div class="form-group">
+                    <label for="template">Plantilla</label>
+                    <select class="form-control" id="template" name="template" (change)="changeTemplate($event)" ngModel>
+                        <option disabled selected value> -- selecciona una plantilla -- </option>
+                        <option *ngFor="let template of templates" [value]="template.id" [selected]="ngForm.template == template.id">
+                            {{template.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Asunto del mensaje</label>
+                    <input type="text" class="form-control" name="subject" id="subject" #subject="ngModel" ngModel/>
+                </div>
+                <div class="form-group">
+                    <label for="attachments">Archivos adjuntos</label>
+                    <input type="file" id="attachments" name="attachments" (change)="addAttachments($event)" multiple />
+                </div>
+                <ul class="nav nav-tabs tabs">
+                    <li class="pull-right" ><a data-toggle="tab" href="#csv" (click)="changeTab($event)">CSV</a></li>
+                    <li class="active pull-right"><a data-toggle="tab" href="#manual" (click)="changeTab($event)">Manual</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="manual" class="tab-pane fade in active center padding2">
+                        <div class="form-group">
+                            <label for="to">Destino/s</label>
+                            <input type="text" class="form-control" name="to" id="to" ngModel/>
+                        </div>
+                        <div class="form-group">
+                            <label for="to">CC/s</label>
+                            <input type="text" class="form-control" name="cc" id="cc" ngModel/>
+                        </div>
+                        <div class="form-group">
+                            <label for="to">CCO/s</label>
+                            <input type="text" class="form-control" name="cco" id="cco" ngModel/>
+                        </div>
+                        <div class="form-group">
+                            <label for="variables">Variables</label>
+                            <div id="variables" class="center padding2" *ngIf="selectedTemplate">
+                                <div *ngFor="let variable of selectedTemplate.variables">
+                                    <label>{{variable}}</label>
+                                    <input type="text" class="form-control" [name]="variable" ngModel/>
+                                </div>
+                            </div>
+                            <div *ngIf="!selectedTemplate">
+                                <span>Selecciona una plantilla para introducir variables</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="csv" class="tab-pane fade center padding2">
+                        <div class="form-group">
+                            <label for="csvFile">Archivo CSV</label>
+                            <input type="file"
+                                   accept=".csv,text/csv"
+                                   id="csvFile" name="csv" (change)="addCSV($event)">
+                        </div>
+                        <div class="form-group">
+                            <label>Variables de cabecera</label>
+                            <div>
+                                <span *ngIf="selectedTemplate">{{selectedTemplate.variables.length > 0 ? selectedTemplate.variables.join(';')+';': ''}}to;cc;cco;</span>
+                                <span *ngIf="!selectedTemplate">Selecciona una plantilla</span>
+                            </div>
+                        </div>
+                        <span class="anotation">*CSV con cabecera separado por ';'</span>
+
+                    </div>
+                </div>
+        </div>
+        <div class='panel-footer'>
+            <button type="button" class="btn btn-warning" [disabled]="!(selectedTemplate && subject.value)" (click)="sendTest(f.value)">Enviar Test</button>
+            <button type="submit" [class]="selectedTemplate && f.value.subject && (f.value.to || csvFile) ? 'btn btn-primary pull-right': 'btn btn-primary pull-right disabled'">Enviar</button>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+</div>

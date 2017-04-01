@@ -1,0 +1,42 @@
+<NotificationComponent></NotificationComponent>
+<div id="ConfigurationComponent" class='panel panel-primary' *ngIf="config">
+    <div class='panel-heading'>
+        {{panelHeading}}
+    </div>
+
+    <!-- Filter the Products   -->
+    <div class='panel-body'>
+        <div class="form-group">
+            <label for="host">Host SMTP</label>
+            <input type="text" class="form-control" id="host" placeholder="Host SMTP" [(ngModel)]="config.host">
+        </div>
+        <div class="form-group">
+            <label for="port">Port SMTP</label>
+            <input type="text" class="form-control" id="port" placeholder="Port SMTP" [(ngModel)]="config.port">
+        </div>
+        <div class="form-group">
+            <label for="user">Usuario SMTP</label>
+            <input type="text" class="form-control" id="user" placeholder="Usuario SMTP" [(ngModel)]="config.auth.user">
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña SMTP</label>
+            <input type="password" class="form-control" id="password" placeholder="Contraseña SMTP" [(ngModel)]="config.auth.pass">
+        </div>
+        <div class="form-group">
+            <label for="fromName">Nombre del Remitente</label>
+            <input type="text" class="form-control" id="fromName" placeholder="Nombre del Remitente" [(ngModel)]="config.from.name">
+        </div>
+        <div class="form-group">
+            <label for="fromEmail">eMail del Remitente</label>
+            <input type="text" class="form-control" id="fromEmail" placeholder="eMail del Remitente" [(ngModel)]="config.from.address">
+        </div>
+        <div class="form-group">
+            <label for="testEmail">eMail de pruebas</label>
+            <input type="text" class="form-control" id="testEmail" placeholder="eMail de pruebas" [(ngModel)]="config.testTo">
+        </div>
+    </div>
+    <div class='panel-footer'>
+        <button type="button" class="btn btn-primary pull-right" (click)="sendForm()" [disabled]="config.host.length == 0 || config.port == 0 || config.auth.user.length == 0 || config.auth.pass.length == 0 || config.from.address.length == 0">Guardar</button>
+        <div class="clearfix"></div>
+    </div>
+</div>

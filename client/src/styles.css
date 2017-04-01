@@ -1,0 +1,28 @@
+@import url('~bootstrap/dist/css/bootstrap.css');
+li {
+    font-size: large;
+}
+
+div.panel-heading {
+    font-size: x-large;
+}
+
+.loader {
+    text-align: center;
+    margin-top: 2em;
+    font-size: 18px;
+}
+.spin-wheel{
+    margin: 1em auto;
+    border: 6px solid #f3f3f3; /* Light grey */
+    border-top: 6px solid #337ab7; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

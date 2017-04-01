@@ -1,0 +1,30 @@
+<NotificationComponent></NotificationComponent>
+<div id="TemplateNewComponent" class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+
+    <!-- Filter the Products   -->
+    <form #f="ngForm" (ngSubmit)="sendForm(f.value)" >
+        <div class='panel-body'>
+                <div class="form-group">
+                    <label for="inputName">Nombre</label>
+                    <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Nombre" #inputName="ngModel" ngModel>
+                </div>
+                <div class="form-group">
+                    <label for="inputVariables">Variables</label>
+                    <tag-input name="inputVariables" id="inputVariables" placeholder="{{tagInputPlaceholder}}" secondaryPlaceholder="{{tagInputSecondaryPlaceholder}}" addOnBlur="{{true}}" ngModel></tag-input>
+                </div>
+                <div class="form-group">
+                    <label for="inputFile">Plantilla</label>
+                    <input type="file" id="inputFile" name="inputFile" (change)="fileChangeEvent($event)">
+                </div>
+        </div>
+        <div class='panel-footer'>
+            <a class='btn btn-default' (click)='onBack()' style='width:80px'>
+                <i class='glyphicon glyphicon-chevron-left'></i> Volver
+            </a>
+            <button type="submit" class="btn btn-primary pull-right" [disabled]="inputName.length == 0 || inputFile == undefined">Guardar</button>
+        </div>
+    </form>
+</div>

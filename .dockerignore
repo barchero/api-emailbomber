@@ -1,0 +1,8 @@
+node_modules
+**/*.ts
+**/*.js.map
+**/tsconfig.json
+**/tslint.json
+**/typings.json
+npm-debug.log
+**/availableTemplates/**
